@@ -1,8 +1,9 @@
 ﻿using System;
+using Domain.Contracts;
 
 namespace Domain.Aggregates.UserAgg.Entities
 {
-    public class User
+    public class User : IEntity
     {
         public User(bool active)
         {
@@ -11,15 +12,16 @@ namespace Domain.Aggregates.UserAgg.Entities
             Active = active;
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
+        public string ExternalId { get; set; }
         public string Name { get; set; }
         public DateTime Birthday { get; set; }
-        private DateTime CreatedAt { get; }
-        private DateTime? UpdatedAt { get; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string CryptedPassword { get; set; }
-        private bool Active { get; set; }
+        public bool Active { get; private set; }
 
         public void Enable(bool enable)
         {
