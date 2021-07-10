@@ -5,11 +5,11 @@ namespace Domain.Aggregates.UserAgg.Entities
 {
     public class User : IEntity
     {
-        public User(bool active)
+        public User()
         {
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
-            Active = active;
+            Active = true;
         }
 
         public int Id { get; set; }
@@ -18,7 +18,7 @@ namespace Domain.Aggregates.UserAgg.Entities
         public DateTime Birthday { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public string UserName { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
         public string CryptedPassword { get; set; }
         public bool Active { get; private set; }
