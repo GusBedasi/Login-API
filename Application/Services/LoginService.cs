@@ -1,4 +1,5 @@
 ﻿using Application.DTO.Contracts;
+using Application.Helpers;
 using Application.Interfaces;
 using Domain.Aggregates.UserAgg.Entities;
 using Domain.Exceptions;
@@ -16,14 +17,9 @@ namespace Application.Services
         }
         public User CreateUser(ICreateUser request)
         {
-            var userExists = _userRepository.FindOne(x => x.Username == request.Username);
+            CheckIfUserExists(request.Username);
 
-            if (userExists != null)
-            {
-                throw new PreconditionFailedException("This user already exists");
-            }
-
-            var cryptedPassword = EncryptPassword(request.Password);
+            var cryptedPassword = Encrypter.Crypt(request.Password);
             
             var user = new User()
             {
@@ -33,6 +29,8 @@ namespace Application.Services
                 Birthday = request.Birthday,
                 ExternalId = Code.Create("user_"),
             };
+            
+            return _userRepository.Add(user);
         }
 
         public User UpdateUser(IUpdateUser request)
@@ -55,9 +53,14 @@ namespace Application.Services
             throw new System.NotImplementedException();
         }
 
-        private string EncryptPassword(string password)
+        private void CheckIfUserExists(string username)
         {
-            return string.Empty;
+            var userExists = _userRepository.FindOne(x => x.Username == username);
+
+            if (userExists != null)
+            {
+                throw new PreconditionFailedException("This user already exists");
+            }
         }
     }
 }

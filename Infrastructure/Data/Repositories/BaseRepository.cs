@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using Infrastructure.Data.Context;
 using Infrastructure.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Data.Repositories
 {
@@ -16,17 +17,17 @@ namespace Infrastructure.Data.Repositories
             _context = context;
         }
         
-        public void Add(TEntity obj)
+        public TEntity Add(TEntity obj)
         {
             if (obj == null)
             {
                 throw new ArgumentNullException();
             }
 
-            _context.Add(obj);
+            return _context.Add(obj).Entity;
         }
 
-        public void Update(TEntity obj)
+        public TEntity Update(TEntity obj)
         {
             if (obj == null)
             {
