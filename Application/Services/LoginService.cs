@@ -1,5 +1,6 @@
 ﻿using System;
 using Application.DTO.Contracts;
+using Application.DTO.Response;
 using Application.Helpers;
 using Application.Interfaces;
 using Domain.Aggregates.UserAgg.Entities;
@@ -16,7 +17,7 @@ namespace Application.Services
         {
             _userRepository = userRepository;
         }
-        public User CreateUser(ICreateUser request)
+        public CreateUserResponse CreateUser(ICreateUser request)
         {
             CheckIfUserExists(request.Username);
 
@@ -27,11 +28,22 @@ namespace Application.Services
                 Name = request.Name,
                 Username = request.Username,
                 CryptedPassword = cryptedPassword,
-                Birthday = Convert.ToDateTime(request.Birthday).Date,
+                Birthday = Convert.ToDateTime(request.Birthday),
                 ExternalId = Code.Create("user_"),
             };
             
-            return _userRepository.Add(user);
+            _userRepository.Add(user);
+            
+            return new CreateUserResponse()
+            {
+                ExternalId = user.ExternalId,
+                Name = user.Name,
+                Username = user.Username,
+                Birthday = user.Birthday,
+                CreatedAt = user.CreatedAt,
+                UpdatedAt = user.UpdatedAt,
+                Active =  user.Active
+            };
         }
 
         public User UpdateUser(IUpdateUser request)

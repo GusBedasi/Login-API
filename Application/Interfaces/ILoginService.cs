@@ -1,11 +1,12 @@
 ﻿using Application.DTO.Contracts;
+using Application.DTO.Response;
 using Domain.Aggregates.UserAgg.Entities;
 
 namespace Application.Interfaces
 {
     public interface ILoginService
     {
-        User CreateUser(ICreateUser request);
+        CreateUserResponse CreateUser(ICreateUser request);
         User UpdateUser(IUpdateUser request);
         void Login(ILogin request);
         void Logout();

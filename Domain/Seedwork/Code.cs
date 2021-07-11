@@ -27,9 +27,9 @@ namespace Domain.Seedwork
 
             var hash = string.Empty;
 
-            hash = computeHash.Aggregate(hash, (result, hashByte) => result + hashByte.ToString("2x"));
+            hash = computeHash.Aggregate(hash, (result, hashByte) => result + hashByte.ToString("x2"));
 
-            return hash;
+            return string.Concat(prefix, hash)[..16];
         }
     }
 }

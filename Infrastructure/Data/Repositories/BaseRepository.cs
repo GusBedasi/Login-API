@@ -23,7 +23,10 @@ namespace Infrastructure.Data.Repositories
                 throw new ArgumentNullException();
             }
 
-            return _context.Add(obj).Entity;
+            _context.Add(obj);
+            _context.SaveChanges();
+
+            return obj;
         }
 
         public void Update(TEntity obj)

@@ -19,7 +19,6 @@ namespace Domain.Aggregates.UserAgg.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
         public string CryptedPassword { get; set; }
         public bool Active { get; private set; }
 
