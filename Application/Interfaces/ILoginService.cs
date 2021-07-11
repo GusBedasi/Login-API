@@ -6,7 +6,7 @@ namespace Application.Interfaces
 {
     public interface ILoginService
     {
-        CreateUserResponse CreateUser(ICreateUser request);
+        User CreateUser(ICreateUser request);
         User UpdateUser(IUpdateUser request);
         void Login(ILogin request);
         void Logout();

@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
+    public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
         private readonly LoginDbContext _context;
-        public BaseRepository(LoginDbContext context)
+
+        protected BaseRepository(LoginDbContext context)
         {
             _context = context;
         }

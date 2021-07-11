@@ -3,6 +3,7 @@ using Application.DTO.Request;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Service.API.Mappers;
 
 namespace Service.API.Controllers
 {
@@ -22,7 +23,9 @@ namespace Service.API.Controllers
         [Route(""), HttpPost]
         public IActionResult CreateUser([FromBody] CreateUser request)
         {
-            var response = _loginService.CreateUser(request);
+            var result = _loginService.CreateUser(request);
+
+            var response = UserMapper.MapDTOToCreateRecipientResponse(result);
 
             return Ok(response);
         }

@@ -17,33 +17,17 @@ namespace Application.Services
         {
             _userRepository = userRepository;
         }
-        public CreateUserResponse CreateUser(ICreateUser request)
+        public User CreateUser(ICreateUser request)
         {
             CheckIfUserExists(request.Username);
 
             var cryptedPassword = Encrypter.Crypt(request.Password);
-            
-            var user = new User()
-            {
-                Name = request.Name,
-                Username = request.Username,
-                CryptedPassword = cryptedPassword,
-                Birthday = Convert.ToDateTime(request.Birthday),
-                ExternalId = Code.Create("user_"),
-            };
+
+            var user = new User(request, cryptedPassword);
             
             _userRepository.Add(user);
-            
-            return new CreateUserResponse()
-            {
-                ExternalId = user.ExternalId,
-                Name = user.Name,
-                Username = user.Username,
-                Birthday = user.Birthday,
-                CreatedAt = user.CreatedAt,
-                UpdatedAt = user.UpdatedAt,
-                Active =  user.Active
-            };
+
+            return user;
         }
 
         public User UpdateUser(IUpdateUser request)

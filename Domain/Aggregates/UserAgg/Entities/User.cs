@@ -1,5 +1,7 @@
 ﻿using System;
+using Application.DTO.Contracts;
 using Domain.Contracts;
+using Domain.Seedwork;
 
 namespace Domain.Aggregates.UserAgg.Entities
 {
@@ -7,6 +9,18 @@ namespace Domain.Aggregates.UserAgg.Entities
     {
         public User()
         {
+            CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
+            Active = true;
+        }
+
+        public User(ICreateUser user, string cryptedPassword)
+        {
+            Name = user.Name;
+            Username = user.Username;
+            CryptedPassword = cryptedPassword;
+            Birthday = Convert.ToDateTime(user.Birthday).Date;
+            ExternalId = Code.Create("user_");
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             Active = true;
