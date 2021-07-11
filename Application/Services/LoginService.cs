@@ -1,4 +1,5 @@
-﻿using Application.DTO.Contracts;
+﻿using System;
+using Application.DTO.Contracts;
 using Application.Helpers;
 using Application.Interfaces;
 using Domain.Aggregates.UserAgg.Entities;
@@ -10,8 +11,8 @@ namespace Application.Services
 {
     public class LoginService : ILoginService
     {
-        private IBaseRepository<User> _userRepository;
-        public LoginService(IBaseRepository<User> userRepository)
+        private IUserRepository _userRepository;
+        public LoginService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -26,7 +27,7 @@ namespace Application.Services
                 Name = request.Name,
                 Username = request.Username,
                 CryptedPassword = cryptedPassword,
-                Birthday = request.Birthday,
+                Birthday = Convert.ToDateTime(request.Birthday).Date,
                 ExternalId = Code.Create("user_"),
             };
             

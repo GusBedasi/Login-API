@@ -9,6 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Application.DTO\Application.DTO.csproj" />
       <ProjectReference Include="..\Application\Application.csproj" />
     </ItemGroup>
 

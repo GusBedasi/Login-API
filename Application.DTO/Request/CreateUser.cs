@@ -15,8 +15,8 @@ namespace Application.DTO.Request
         
         [Required]
         [JsonProperty("birthday"), DisplayName("birthday")]
-        public DateTime Birthday { get; set; }
-        
+        public string Birthday { get; set; }
+
         [Required, StringLength(20)]
         [JsonProperty("username"), DisplayName("username")]
         public string Username { get; set; }
@@ -28,13 +28,6 @@ namespace Application.DTO.Request
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var results = new List<ValidationResult>();
-
-            var age = int.Parse(Birthday.ToString("dd/MM/yyyy"));
-            var currentYear = int.Parse(DateTime.UtcNow.ToString("dd/Mm/yyyy"));
-            if ((age - currentYear) / 10000 < 18)
-            {
-                results.Add(new ValidationResult("Forbidden to -18"));
-            }
 
             return results;
         }

@@ -20,7 +20,7 @@ namespace Application.Helpers
             return  Convert.ToBase64String(hashBytes);
         }
 
-        public static string Decrypt(string password, string hashedPassword)
+        public static void Decrypt(string password, string hashedPassword)
         {
             var hashBytes = Convert.FromBase64String(hashedPassword);
 
