@@ -30,7 +30,7 @@ namespace Infrastructure.Data.Repositories
             return obj;
         }
 
-        public void Update(TEntity obj)
+        public TEntity Update(TEntity obj)
         {
             if (obj == null)
             {
@@ -39,6 +39,8 @@ namespace Infrastructure.Data.Repositories
 
             _context.Entry(obj).State = EntityState.Modified;
             _context.SaveChanges();
+
+            return obj;
         }
 
         public void Delete(TEntity obj)

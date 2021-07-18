@@ -8,5 +8,6 @@ namespace Application.DTO.Contracts
         string Password { get; set; }
         bool Active { get; set; }
         DateTime Birthday { get; set; }
+        string Role { get; set; }
     }
 }

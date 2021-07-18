@@ -3,6 +3,7 @@ using Application.DTO.Contracts;
 using Application.DTO.Response;
 using Application.Helpers;
 using Application.Interfaces;
+using Application.Tokens;
 using Domain.Aggregates.UserAgg.Entities;
 using Domain.Exceptions;
 using Domain.Seedwork;
@@ -30,24 +31,31 @@ namespace Application.Services
             return user;
         }
 
-        public User UpdateUser(IUpdateUser request)
+        public LoginResponse Login(ILogin request)
         {
-            throw new System.NotImplementedException();
+            var user = ValidateUser(request.Username, request.Password);
+
+            if (user == null)
+            {
+                throw new NotFoundException();
+            }
+
+            var token = TokenService.GenerateToken(user);
+
+            var loginResponse = new LoginResponse()
+            {
+                Username = request.Username,
+                Token = token
+            };
+
+            return loginResponse;
         }
 
-        public void Login(ILogin request)
+        public User GetUserByUsername(string username)
         {
-            throw new System.NotImplementedException();
-        }
+            var user = _userRepository.FindOne(x => x.Username == username);
 
-        public void Logout()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void OnlyTokenAccess()
-        {
-            throw new System.NotImplementedException();
+            return user;
         }
 
         private void CheckIfUserExists(string username)
@@ -58,6 +66,15 @@ namespace Application.Services
             {
                 throw new PreconditionFailedException("This user already exists");
             }
+        }
+
+        private User ValidateUser(string username, string password)
+        {
+            var user = _userRepository.FindOne(x => x.Username == username);
+
+            Encrypter.Decrypt(password, user.CryptedPassword);
+
+            return user;
         }
     }
 }
