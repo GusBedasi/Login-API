@@ -17,10 +17,10 @@ namespace Application.Helpers
             Array.Copy(salt, 0, hashBytes, 0, 16);
             Array.Copy(hash, 0, hashBytes, 16, 20);
 
-            return  Convert.ToBase64String(hashBytes);
+            return Convert.ToBase64String(hashBytes);
         }
 
-        public static void Decrypt(string password, string hashedPassword)
+        public static bool Decrypt(string password, string hashedPassword)
         {
             var hashBytes = Convert.FromBase64String(hashedPassword);
 
@@ -37,6 +37,8 @@ namespace Application.Helpers
                     throw new UnauthorizedAccessException();
                 }
             }
+
+            return true;
         }
     }
 }

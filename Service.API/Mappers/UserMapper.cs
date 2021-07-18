@@ -1,11 +1,12 @@
-﻿using Application.DTO.Response;
+﻿using Application.DTO.Contracts;
+using Application.DTO.Response;
 using Domain.Aggregates.UserAgg.Entities;
 
 namespace Service.API.Mappers
 {
     public static class UserMapper
     {
-        public static CreateUserResponse MapDTOToCreateRecipientResponse(User result)
+        public static CreateUserResponse MapDTOToCreateUserResponse(User result)
         {
             var createdUserResponse = new CreateUserResponse()
             {
@@ -15,7 +16,8 @@ namespace Service.API.Mappers
                 Birthday = result.Birthday,
                 CreatedAt = result.CreatedAt,
                 UpdatedAt = result.UpdatedAt,
-                Active =  result.Active
+                Active =  result.Active,
+                Roles = result.Roles
             };
 
             return createdUserResponse;

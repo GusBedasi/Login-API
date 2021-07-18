@@ -16,6 +16,7 @@ namespace Infrastructure.Data.Mappings
             builder.Property(x => x.Username).IsRequired().HasMaxLength(20).HasColumnType("varchar");
             builder.Property(x => x.CryptedPassword).IsRequired().HasMaxLength(50).HasColumnType("varchar");
             builder.Property(x => x.Active).IsRequired();
+            builder.Property(x => x.Roles).IsRequired().HasMaxLength(20).HasColumnType("varchar");
         }
     }
 }

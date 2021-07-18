@@ -24,6 +24,7 @@ namespace Domain.Aggregates.UserAgg.Entities
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             Active = true;
+            Roles = user.Role;
         }
 
         public int Id { get; set; }
@@ -35,7 +36,7 @@ namespace Domain.Aggregates.UserAgg.Entities
         public string Username { get; set; }
         public string CryptedPassword { get; set; }
         public bool Active { get; private set; }
-
+        public string Roles { get; set; }
         public void Enable(bool enable)
         {
             Active = enable;
